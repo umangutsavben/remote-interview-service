@@ -1,9 +1,14 @@
- import dotenv from "dotenv";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
- dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
- export const ENV = {
-    PORT:process.env.PORT,
-    DB_URL:process.env.DB_URL,
-    NODE_ENV:process.env.NODE_ENV
- }
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+
+export const ENV = {
+  PORT: process.env.PORT || 3000,
+  DB_URL: process.env.DB_URL || "",
+  NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV.trim().replace(/^["']|["']$/g, "") : "development",
+};
